@@ -11,6 +11,7 @@ decode = concatMap dec
 dec :: Encoded a -> [a]
 dec (Single x) = [x]
 dec (Multiple (n,s)) = [ s | _ <- [1..n] ]
+-- replicate
 
 pack :: (Eq a) => [a] -> [[a]]
 pack = Data.List.group
