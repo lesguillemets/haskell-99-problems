@@ -1,5 +1,6 @@
 import GHC.Exts (sortWith)
-import Data.List (sort)
+import Data.Function (on)
+import Data.List (sort, groupBy)
 import qualified Data.Vector.Unboxed as V
 import Data.Vector.Unboxed ((!))
 
@@ -7,6 +8,10 @@ original =  ["abc","de","fgh","de","ijkl","mn","o"]
 
 lsort' :: [[a]] -> [[a]]
 lsort' = sortWith length
+
+
+lfsort'' :: [[a]] -> [[a]]
+lfsort'' = concat . sortWith length . groupBy ((==) `on` length) . sortWith length
 
 lfsort' :: [[a]] -> [[a]]
 lfsort' li = sortWith ((v!) . length) li
@@ -22,3 +27,4 @@ freqTable li = let ll = sort . map length $ li
 main = do
     print $ lsort' original
     print $ lfsort' original
+    print $ lfsort'' original
